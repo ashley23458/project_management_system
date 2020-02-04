@@ -150,6 +150,20 @@ a[data-toggle="collapse"] {
     width: 2rem;
 }
 
+.divider {
+    margin: 25px 0 7px;
+    text-align: center;
+    border-top: 1px solid #ada4a4;
+}
+
+.divider i {
+    background: #fff;
+    padding: 0 7px;
+    position: relative;
+    top: -11px;
+    z-index: 1;
+}
+
 /* Fonts */
 .dashboard-icons {
     vertical-align: -4px;
@@ -173,4 +187,13 @@ p {
 
 .dropdown-toggle::after {
     display:none;
+}
+
+/* Buttons */
+
+.social-btn {
+    margin: 10px 0;
+    font-size: 15px;
+    text-align: left;
+    line-height: 24px;
 }
