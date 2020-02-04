@@ -12,13 +12,13 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
 /*
-   Google auth routes
+   auth routes
 */
+Auth::routes();
 Route::get('login/google', 'Auth\LoginController@redirectToProvider')->name('google_login');
 Route::get('/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/logout', 'Auth\LoginController@logout');
+

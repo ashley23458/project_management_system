@@ -22,7 +22,7 @@
                    <img src="https://image.shutterstock.com/image-vector/profile-photo-vector-placeholder-pic-600w-535853263.jpg" alt="..." class="img-profile rounded-circle">
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="">Log out</a>
+                    <a class="dropdown-item" href="{{ route('logout')}}">Log out</a>
                 </div>
             </li>
         </ul>
