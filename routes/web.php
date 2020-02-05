@@ -13,6 +13,7 @@
 
 Route::group (['middleware' => 'auth'], function () {
 	Route::resource('task', 'TaskController');
+	Route::resource('company', 'CompanyController');
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/home', 'HomeController@index')->name('home');
 });
