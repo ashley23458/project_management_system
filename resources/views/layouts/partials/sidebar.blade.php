@@ -24,6 +24,11 @@
                     <i class="material-icons dashboard-icons">list</i> <span class="text">Tasks</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('company.index')}}">
+                    <i class="material-icons dashboard-icons">location_city</i> <span class="text">Companies</span>
+                </a>
+            </li>
         </ul>
     </div>
 </nav>
