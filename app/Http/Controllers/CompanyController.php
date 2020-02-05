@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Company;
+use App\Http\Requests\StoreCompanyPost;
 
 class CompanyController extends Controller
 {
     public function index()
     {
-        $companies = Company::where('user_id', Auth::user()->id);
+        $companies = Company::where('user_id', Auth::user()->id)->get();
         return view('company.index', compact('companies'));
     }
 
     public function create()
     {
-        //
+        return view('company.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCompanyPost $request)
     {
-        auth()->user()->company()->create($attributes);
+        auth()->user()->companies()->create($request->all());
+        return redirect()->route('company.index')->with('status', 'Company added successfully.');
+
     }
 
     public function show($id)

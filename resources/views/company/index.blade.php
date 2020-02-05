@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Home')
+@section('title', 'Companies')
 @section('content')
 <div class="card bg-white">
 	<div class="card-header">
@@ -26,8 +26,8 @@
 					@foreach ($companies as $company)
 						<tr>
 							<th scope="row">{{ $company->id }}</th>
-							<td>{{ $company->title }}</td>
-							<td>{{ $company->createdBy->name }}</td>
+							<td>{{ $company->name }}</td>
+							<td>{{ $company->owner->name }}</td>
 							<td></td>
 						</tr>
 					@endforeach

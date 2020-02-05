@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function companies()
     {
-        return $this->belongsToMany('App\Companies');
+        return $this->hasMany('App\Company');
     }
 }

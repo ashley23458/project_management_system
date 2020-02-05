@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-	protected $fillable = ['title', 'user_id'];
+	protected $fillable = ['name', 'user_id'];
 
 	public function owner()
     {
