@@ -197,3 +197,9 @@ p {
     text-align: left;
     line-height: 24px;
 }
+
+.create-new {
+    min-width: 100px;
+    border-radius: 50px;
+    float: right;
+}
