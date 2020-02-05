@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Task');
     }
+
+    public function companies()
+    {
+        return $this->belongsToMany('App\Companies');
+    }
 }

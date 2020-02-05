@@ -10,5 +10,9 @@ class Company extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
-    //
+    
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }
