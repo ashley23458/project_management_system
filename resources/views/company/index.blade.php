@@ -26,9 +26,11 @@
 					@foreach ($companies as $company)
 						<tr>
 							<th scope="row">{{ $company->id }}</th>
-							<td>{{ $company->name }}</td>
+							<td><a href="#" class="alert-link">{{ $company->name }}</a></td>
 							<td>{{ $company->owner->name }}</td>
-							<td></td>
+							<td>
+								<a href="{{ route('company.edit', $company->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a>
+							</td>
 						</tr>
 					@endforeach
 				</tbody>
