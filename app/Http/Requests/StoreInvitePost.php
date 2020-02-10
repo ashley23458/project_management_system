@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateCompanyPost extends FormRequest
+class StoreInvitePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +24,7 @@ class UpdateCompanyPost extends FormRequest
     public function rules()
     {
         return [
-            'name' =>  ['required', 'string', 'max:255', Rule::unique('companies')->ignore($this->route()->company->id)],
-            'user_id' => ['required', 'string', 'max:255', Rule::unique('companies')->ignore($this->route()->company->id)]
+            //
         ];
     }
 }
