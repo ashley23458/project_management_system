@@ -16,7 +16,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
 						<th scope="col">Title</th>
 						<th scope="col">Owner</th>
 						<th scope="col"></th>
@@ -25,7 +24,6 @@
 				<tbody>
 					@foreach ($companies as $company)
 						<tr>
-							<th scope="row">{{ $company->id }}</th>
 							<td><a href="#" class="alert-link">{{ $company->name }}</a></td>
 							<td>{{ $company->owner->name }}</td>
 							<td>
