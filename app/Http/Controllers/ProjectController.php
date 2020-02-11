@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Project;
+use App\User;
 
 class ProjectController extends Controller
 {
@@ -25,7 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('project.create', compact(''));
     }
 
     /**
@@ -36,7 +38,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
