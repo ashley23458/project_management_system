@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreInvitePost extends FormRequest
 {
@@ -24,7 +25,7 @@ class StoreInvitePost extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => ['required', 'email', 'exists:users,email', 'not_in:'.Auth::user()->email]
         ];
     }
 }
