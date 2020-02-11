@@ -19,6 +19,7 @@ Route::group (['middleware' => 'auth'], function () {
 	Route::put('company/{id}/sendinvite', 'InviteController@sendInvite')->name('send_invite');
     Route::get('/company/view/invite/{token}', 'InviteController@viewInvite')->name('view_invite');
     Route::get('/company/invite/{response}/{token}', 'InviteController@inviteResponse')->name('invite_respond');
+    Route::get('/company/setdefault/{id}', 'CompanyController@setDefaultCompany')->name('set_default_company');
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/home', 'HomeController@index')->name('home');
 });

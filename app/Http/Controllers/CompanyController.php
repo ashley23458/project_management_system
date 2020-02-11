@@ -58,7 +58,7 @@ class CompanyController extends Controller
         if ($company->user_id == Auth::user()->id) {
             //search and see if user is part of that company first
             $userExists = User::whereHas('companies', function($query) use($company, $request ) {
-                $query->where('company_id', $company->id)->where('company_user.user_id', $request->user_id);
+                $query->where('company_user.company_id', $company->id)->where('company_user.user_id', $request->user_id);
             })->first();
             //if user part of that company allow the update to be made
             if ($userExists) {
@@ -74,5 +74,18 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function setDefaultCompany($id)
+    {
+        $userId = Auth::user()->id;
+        $userPartOfCompany = User::whereHas('companies', function($query) use ($id, $userId) {
+            $query->where('company_id', $id)->where('company_user.user_id', $userId);
+        })->first();
+
+        if ($userPartOfCompany) {
+            User::findOrFail($userId)->update(['company_id' => $id]);
+            return redirect()->route('company.index')->with('status', 'Company set as default company.');
+        }
     }
 }
