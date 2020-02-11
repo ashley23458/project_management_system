@@ -33,7 +33,7 @@ class InviteNotification extends Mailable
             ->markdown('mails.invite')
             ->with([
                 'invitee' => $this->data->invitee->name,
-                'link' => 'https://mailtrap.io/inboxes',
+                'token' => rawurlencode($this->data->invite_token),
                 'inviter' => $this->data->inviter->name
             ]);
     }
