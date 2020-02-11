@@ -14,6 +14,7 @@
 Route::group (['middleware' => 'auth'], function () {
 	Route::resource('task', 'TaskController');
 	Route::resource('company', 'CompanyController');
+	Route::resource('project', 'ProjectController');
 	Route::get('company/{id}/invite', 'InviteController@inviteForm')->name('company_invite');
 	Route::put('company/{id}/sendinvite', 'InviteController@sendInvite')->name('send_invite');
     Route::get('/company/view/invite/{token}', 'InviteController@viewInvite')->name('view_invite');
