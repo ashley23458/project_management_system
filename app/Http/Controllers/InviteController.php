@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreInvitePost;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\InviteNotification;
+use Illuminate\Support\Facades\Mail;
 use App\Company;
 use App\User;
 use App\Invite;
@@ -33,6 +35,7 @@ class InviteController extends Controller
 				'email' => $request->email]);
 			$invite->inviteToken();
 			$invite->save();
+			Mail::to($request->email)->send(new InviteNotification($invite)); 
 			return redirect()->route('company.index')->with('status', 'Invite has been sent.');
 		} else {
 			return redirect()->route('company.index');
