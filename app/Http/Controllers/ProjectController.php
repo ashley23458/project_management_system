@@ -18,7 +18,9 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $users = User::where('company_id', Auth::user()->company_id)->orderBy('name')->get(['id', 'name']);
+        $users = User::whereHas('companies', function($query) {
+            $query->where('company_user.company_id', Auth::user()->company_id);
+        })->orderBy('name')->get(['id', 'name']);
         return view('project.create', compact('users'));
     }
 
@@ -28,7 +30,7 @@ class ProjectController extends Controller
             'description' => $request->description,
             'company_id' => Auth::user()->company_id]);
 
-        $project->users()->attach(Auth::user()->id);
+        $project->users()->attach($request->users);
         return redirect()->route('project.index')->with('status', 'Project added successfully.');
     }
 
@@ -37,14 +39,28 @@ class ProjectController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        if ($project->company_id == Auth::user()->company_id) {
+            $users = User::whereHas('companies', function($query) {
+                $query->where('company_user.company_id', Auth::user()->company_id);
+            })->orderBy('name')->get(['id', 'name']);
+            return view('project.edit', compact('project', 'users'));
+        } else {
+            return redirect()->route('project.index')->with('status', 'Please set this projects company to your default company in the companies section before editing.');
+        }
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreProjectPost $request, Project $project)
     {
-        //
+        if ($project->company_id == Auth::user()->company_id) {
+            $project->update(['title' => $request->title, 'description' => $request->description]);
+            $project->users()->sync($request->users);
+            $message = "Company updated successfully.";
+        } else {
+            $message = "Please set this projects company to your default company in the companies section before editing.";
+        }
+        return redirect()->route('project.index')->with('status', $message);
     }
 
     public function destroy($id)

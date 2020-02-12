@@ -5,7 +5,7 @@
 	<div class="card-header">
 		<div class="row">
 			<div class="col-md-8">
-				<h2>Projects</h2>
+				<h2>Projects for <strong>{{Auth::user()->defaultCompany->name}}</strong></h2>
 			</div>
 			<div class="col-md-4">
 				<a href="{{ route('project.create') }}" class="btn btn-info create-new" role="button"><i class="fas fa-plus"></i> Create New</a>	
