@@ -13,7 +13,7 @@
 				    <div class="form-group row">
 				    	<label for="title" class="col-sm-3 col-form-label">Title</label>
 				    	<div class="col-sm-9">
-				    		<input type="text" class="form-control  @error('title') is-invalid @enderror" id="title" name="title" placeholder="Enter title">
+				    		<input type="text" class="form-control  @error('title') is-invalid @enderror" id="title" name="title" placeholder="Enter title" value="{{old('title')}}">
 				    		@error('title')
 				    		    <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -36,17 +36,10 @@
 				    	<label for="users" class="col-sm-3 col-form-label">Add users to the project</label>
 				    	<div class="col-sm-9">
 				    		<select multiple class="form-control" id="users" name="users[]">
-				    			<option>1</option>
-				    			<option>2</option>
-				    			<option>3</option>
-				    			<option>4</option>
-				    			<option>5</option>
+				    			@foreach ($users as $user)
+				    			    <option value="{{ $user->id }}" {{ (collect(old('users'))->contains($user->id)) ? 'selected':'' }}>{{ $user->name }}</option>
+				    			@endforeach
 				    		</select>
-				    		@error('description')
-				    		    <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-				    		@enderror
 				    	</div>
 				    </div>
 				    <button type="submit" class="btn btn-info">Submit</button>
