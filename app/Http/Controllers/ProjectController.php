@@ -12,7 +12,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = [];
+        $projects = Project::where('company_id', Auth::user()->company_id)->orderBy('title')->paginate(10);
         return view('project.index', compact('projects'));
     }
 
