@@ -20,7 +20,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{route('task.index')}}">
                     <i class="material-icons dashboard-icons">list</i> <span class="text">Tasks</span>
                 </a>
             </li>
