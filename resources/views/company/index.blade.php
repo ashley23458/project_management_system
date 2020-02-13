@@ -28,7 +28,11 @@
 							<td>{{ $company->owner->name }}</td>
 							<td>
 								<a href="{{ route('company_invite', $company->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-envelope-open-text"></i> Send invitation</a>
-								<a href="{{ route('set_default_company', $company->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Set default company</a>
+								@if ($company->id == Auth::user()->company_id)
+								    <a href="" class="btn btn-success create-new" role="button"><i class="fas fa-check"></i> Current default company</a>
+								@else
+								    <a href="{{ route('set_default_company', $company->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Set default company</a>
+								@endif
 								<a href="{{ route('company.edit', $company->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a>
 							</td>
 						</tr>
