@@ -29,6 +29,7 @@ class StoreTaskPost extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'max:255',
+            'status' => 'in:0,1,2',
             'users.*' => ['exists:users,id', 
                           'distinct', //check if user is part of company and user exists. 
                           Rule::exists('company_user', 'user_id')->where(function ($query) {
