@@ -22,6 +22,16 @@ class TaskController extends Controller
         return view('task.index', compact('tasks'));
     }
 
+    public function viewCalendar()
+    {
+        $tasks = Task::whereHas('project', function($query){ 
+            $query->where('company_id', Auth::user()->company_id);
+        })->whereHas('users', function($query){ 
+            $query->where('task_user.user_id', Auth::user()->id);
+        })->get();
+        return view('task.calendar', compact('tasks'));
+    }
+
     public function create()
     {
         $users = User::whereHas('companies', function($query) {

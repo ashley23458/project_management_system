@@ -22,6 +22,7 @@ Route::group (['middleware' => 'auth'], function () {
     Route::get('/company/setdefault/{id}', 'CompanyController@setDefaultCompany')->name('set_default_company');
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/calendar', 'TaskController@viewCalendar')->name('calendar');
 });
 
 /*
