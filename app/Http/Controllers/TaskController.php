@@ -81,6 +81,7 @@ class TaskController extends Controller
         $endDate = Carbon::parse($request->end_date)->format('Y-m-d');
         $task->update(['title' => $request->title,
             'description' => $request->description,
+            'status' => $request->status,
             'project_id' => $request->project_id,
             'user_id' => Auth::user()->id,
             'start_date' => $startDate,

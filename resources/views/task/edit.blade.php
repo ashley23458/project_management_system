@@ -49,6 +49,22 @@
 				    	</div>
 				    </div>
 				    <div class="form-group row">
+				    	<label for="project_id" class="col-sm-3 col-form-label">Select a status {{$task->status}}</label>
+				    	<div class="col-sm-9">
+				    		<select class="form-control" id="status" name="status">
+				    			<option>Please select...</option>
+				    			<option value="0" {{ (collect(old('status', $task->status))->contains($task->status)) ? 'selected':'' }}>Not started</option>
+				    			<option value="1" {{ (collect(old('status', $task->status))->contains($task->status)) ? 'selected':'' }}>In-progress</option>
+				    			<option value="2" {{ (collect(old('status', $task->status))->contains($task->status)) ? 'selected':'' }}>Complete</option>
+				    		</select>
+				    		@error('status')
+				    		    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+				    		@enderror
+				    	</div>
+				    </div>
+				    <div class="form-group row">
 				    	<label for="users" class="col-sm-3 col-form-label">Add users to the project</label>
 				    	<div class="col-sm-9">
 				    		<select multiple class="form-control" id="users" name="users[]">
