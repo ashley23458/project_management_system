@@ -49,7 +49,7 @@
 				    	</div>
 				    </div>
 				    <div class="form-group row">
-				    	<label for="project_id" class="col-sm-3 col-form-label">Select a status {{$task->status}}</label>
+				    	<label for="project_id" class="col-sm-3 col-form-label">Select a status</label>
 				    	<div class="col-sm-9">
 				    		<select class="form-control" id="status" name="status">
 				    			<option>Please select...</option>

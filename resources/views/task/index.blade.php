@@ -19,6 +19,7 @@
 						<tr>
 							<th scope="col">Title</th>
 							<th scope="col">Description</th>
+							<th scope="col">Status</th>
 							<th scope="col">Action</th>
 						</tr>
 					</thead>
@@ -27,6 +28,15 @@
 							<tr>
 								<td>{{ $task->title }}</td>
 								<td>{{ $task->description }}</td>
+								<td>
+									@if ($task->status == 1)
+									    <span class="badge badge-pill badge-warning">In-progress</span>
+									@elseif($task->status == 2)
+									    <span class="badge badge-pill badge-success">Complete</span>
+									@else 
+									    <span class="badge badge-pill badge-secondary">Not started</span>
+									@endif
+								</td>
 								<td><a href="{{ route('task.edit', $task->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a></td>
 							</tr>
 						@endforeach
