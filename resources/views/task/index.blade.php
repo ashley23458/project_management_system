@@ -37,7 +37,17 @@
 									    <span class="badge badge-pill badge-secondary">Not started</span>
 									@endif
 								</td>
-								<td><a href="{{ route('task.edit', $task->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a></td>
+								<td>
+									
+									<form id="formDelete" method="post" class="float-right" action="{{ route('task.destroy', $task->id) }}">
+										{{ csrf_field() }}
+										{{ method_field('DELETE') }}
+										<button class="btn btn-danger create-new" type="submit" onclick="return confirm('Are you sure you want to delete this task?')">
+											<i class="fas fa-trash"></i> Delete
+										</button>
+									</form>
+									<a href="{{ route('task.edit', $task->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a>
+								</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -47,5 +57,4 @@
 		@endif
 	</div>
 </div>
-
 @endsection

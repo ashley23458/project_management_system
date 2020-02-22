@@ -91,8 +91,13 @@ class TaskController extends Controller
         return redirect()->route('task.index')->with('status', 'Task updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        if ($task->project->company_id == Auth::user()->company_id) {
+            $task->delete();
+            return redirect()->route('task.index')->with('status', 'Task deleted successfully.');
+        } else {
+            return abort(404);
+        }
     }
 }
