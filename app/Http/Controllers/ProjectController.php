@@ -56,15 +56,20 @@ class ProjectController extends Controller
         if ($project->company_id == Auth::user()->company_id) {
             $project->update(['title' => $request->title, 'description' => $request->description]);
             $project->users()->sync($request->users);
-            $message = "Company updated successfully.";
+            $message = "Project updated successfully.";
         } else {
             $message = "Please set this projects company to your default company in the companies section before editing.";
         }
         return redirect()->route('project.index')->with('status', $message);
     }
 
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        if ($project->company_id == Auth::user()->company_id) {
+            $project->delete();
+        } else {
+            return abort(404);
+        }
+        return redirect()->route('project.index')->with('status', "Project has been deleted successfully!");
     }
 }
