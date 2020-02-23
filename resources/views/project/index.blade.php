@@ -29,7 +29,16 @@
 								<td>{{ $project->title }}</td>
 								<td>{{ $project->description }}</td>
 								<td>{{ $project->updated_at->format('jS F Y h:i A') }}</td>
-								<td><a href="{{ route('project.edit', $project->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a></td>
+								<td>
+									<form id="formDelete" method="post" class="float-right" action="{{ route('project.destroy', $project->id) }}">
+										{{ csrf_field() }}
+										{{ method_field('DELETE') }}
+										<button class="btn btn-danger create-new" type="submit" onclick="return confirm('Are you sure you want to delete this project?')">
+											<i class="fas fa-trash"></i> Delete
+										</button>
+									</form>
+									<a href="{{ route('project.edit', $project->id) }}" class="btn btn-secondary create-new" role="button"><i class="fas fa-pencil-alt"></i> Edit</a>
+								</td>
 							</tr>
 						@endforeach
 					</tbody>
