@@ -53,9 +53,9 @@
 				    	<div class="col-sm-9">
 				    		<select class="form-control" id="status" name="status">
 				    			<option>Please select...</option>
-				    			<option value="0" {{ (collect(old('status', $task->status))->contains($task->status)) ? 'selected':'' }}>Not started</option>
-				    			<option value="1" {{ (collect(old('status', $task->status))->contains($task->status)) ? 'selected':'' }}>In-progress</option>
-				    			<option value="2" {{ (collect(old('status', $task->status))->contains($task->status)) ? 'selected':'' }}>Complete</option>
+				    			<option value="0" {{ (collect(old('status', $task->status))->contains(0)) ? 'selected':'' }}>Not started</option>
+				    			<option value="1" {{ (collect(old('status', $task->status))->contains(1)) ? 'selected':'' }}>In-progress</option>
+				    			<option value="2" {{ (collect(old('status', $task->status))->contains(2)) ? 'selected':'' }}>Complete</option>
 				    		</select>
 				    		@error('status')
 				    		    <span class="invalid-feedback" role="alert">
