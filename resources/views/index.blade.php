@@ -26,7 +26,7 @@
             	<div class="row">
             		<div class="col">
             			<h2 class="text-muted">Tasks to-do</h2>
-            			<p>1</p>
+            			<p>{{ $tasksNotCompleted }}</p>
             		</div>
             		<div class="col-auto">
             			<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -43,7 +43,7 @@
             	<div class="row">
             		<div class="col">
             			<h2 class="text-muted">Tasks completed</h2>
-            			<p>156</p>
+            			<p>{{ $tasksCompleted }}</p>
             		</div>
             		<div class="col-auto">
             			<div class="icon icon-shape bg-success text-white rounded-circle shadow">
@@ -60,7 +60,7 @@
             	<div class="row">
             		<div class="col">
             			<h2 class="text-muted">Over due tasks</h2>
-            			<p>10</p>
+            			<p>{{ $tasksOverDue }}</p>
             		</div>
             		<div class="col-auto">
             			<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -89,7 +89,8 @@
                 Task progress
             </div>
             <div class="card-body">
-                
+                <div id="chart-div"></div>
+                {!! $lava->render('DonutChart', 'IMDB', 'chart-div') !!}
             </div>
         </div>
     </div>
