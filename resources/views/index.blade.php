@@ -9,7 +9,7 @@
             	<div class="row">
             		<div class="col">
             			<h2 class="text-muted">Projects</h2>
-            			<p>1</p>
+            			<p>{{ $projectsCount }}</p>
             		</div>
             		<div class="col-auto">
             			<div class="icon icon-shape bg-primary text-white rounded-circle shadow">

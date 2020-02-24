@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Task;
+use App\Project;
 use Illuminate\Support\Facades\Auth;
 use Khill\Lavacharts\Lavacharts;
 class HomeController extends Controller
@@ -32,6 +33,10 @@ class HomeController extends Controller
             $query->where('task_user.user_id', Auth::user()->id);
         })->count();
 
+        $projectsCount = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){ 
+            $query->where('project_user.user_id', Auth::user()->id);
+        })->orderBy('title')->count();
+
     	$lava = new Lavacharts;
     	$reasons = $lava->DataTable();
     	$reasons->addStringColumn('Reasons')
@@ -39,6 +44,6 @@ class HomeController extends Controller
     	->addRow(array('Completed tasks', $tasksCompleted))
     	->addRow(array('Unfinished tasks', $tasksNotCompleted));
     	$donutchart = $lava->DonutChart('IMDB', $reasons);
-        return view('index', compact('lava', 'tasksCompleted', 'tasksNotCompleted', 'tasksOverDue'));
+        return view('index', compact('lava', 'tasksCompleted', 'tasksNotCompleted', 'tasksOverDue', 'projectsCount'));
     }
 }
