@@ -48,7 +48,7 @@ class CompanyController extends Controller
 
             return view('company.edit', compact('company', 'users'));
         } else {
-            return redirect()->route('company.index');
+            return abort(404);
         }
 
     }
@@ -67,7 +67,7 @@ class CompanyController extends Controller
             }
             return;
         } else {
-            return redirect()->route('company.index');
+            return abort(404);
         }
     }
 
