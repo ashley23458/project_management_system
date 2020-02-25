@@ -25,12 +25,17 @@
 				    <div class="form-group row">
 				    	<label for="owner" class="col-sm-3 col-form-label">Owner</label>
 				    	<div class="col-sm-9">
-				    		<select name="user_id" class="form-control" id="owner">
-				    			<option>Please select...</option>
+				    		<select name="user_id" class="form-control @error('user_id') is-invalid @enderror" id="owner">
+				    			<option value="">Please select...</option>
 				    			    @foreach ($users as $user)
 				    			        <option value="{{$user->id}}" {{ (old('user_id', $user->id) == $company->user_id ? "selected":"") }}> {{$user->name}} </option>
 				    			    @endforeach
 				    	    </select>
+				    	    @error('user_id')
+				    		    <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+				    		@enderror
 				    	</div>
 				    </div>
                 </div>
