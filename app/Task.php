@@ -26,4 +26,13 @@ class Task extends Model
     {
         return $this->belongsToMany('App\User')->withPivot('user_id');
     }
+
+    public static function getPercentageCompleted($total, $number)
+    {
+        if ($total > 0) {
+            return round($number / ($total / 100), 2);
+        } else {
+            return 0;
+        }
+    }
 }
