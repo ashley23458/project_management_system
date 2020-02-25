@@ -88,6 +88,13 @@ class TaskController extends Controller
             'end_date' => $endDate,
             'time_estimate' => $request->time_estimate]);
         $task->users()->sync($request->users);
+
+        $taskTotal = Task::where('project_id', $task->project_id);
+        $tasksCount = $taskTotal->count();
+        $tasksCompleted = $taskTotal->where('status', 2)->count();
+        $total = Task::getPercentageCompleted($tasksCount, $tasksCompleted);
+        Project::findOrFail($task->project_id)->update(['percentage' => $total]);
+
         return redirect()->route('task.index')->with('status', 'Task updated successfully.');
     }
 

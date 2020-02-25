@@ -2,6 +2,9 @@
 @extends('layouts.app')
 @section('title', 'Home')
 @section('content')
+@push('stylesheets')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+@endpush
 <div class="row">
 	<div class="col-sm-3">
         <div class="card">
@@ -79,7 +82,22 @@
                 Upcoming tasks
             </div>
             <div class="card-body">
-                
+                <table id="task_table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Start date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tasks as $task)
+                            <tr>
+                                <td>{{ $task->title }}</td>
+                                <td>{{ $task->start_date->format('jS F Y') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -102,7 +120,27 @@
                 Projects
             </div>
             <div class="card-body">
-                
+                <table id="project_table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($projects as $project)
+                            <tr>
+                                <td>{{ $project->title }}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ $project->percentage }}%" aria-valuenow="{{ $project->percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -118,3 +156,7 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+    <script type="text/javascript" src="{{ url('js/datatables.js') }}"></script>
+@endpush
