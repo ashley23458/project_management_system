@@ -24,7 +24,13 @@
 				<tbody>
 					@foreach ($companies as $company)
 						<tr>
-							<td><a href="#" class="alert-link">{{ $company->name }}</a></td>
+							<td>
+								@if ($company->user_id == Auth::user()->id)
+								    <a href="{{ route('company.show', $company->id) }}" class="alert-link">{{ $company->name }}</a>
+								@else 
+								    {{ $company->name }}
+								@endif
+							</td>
 							<td>{{ $company->owner->name }}</td>
 							<td>
 								@if ($company->id == Auth::user()->company_id)

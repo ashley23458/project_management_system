@@ -34,9 +34,17 @@ class CompanyController extends Controller
 
     }
 
-    public function show($id)
+    public function show(Company $company)
     {
-        //
+         if ($company->user_id == Auth::user()->id) {
+
+            $users = User::whereHas('companies', function($query) use($company) {
+                $query->where('company_user.company_id', $company->id);
+            })->get();
+            return view('company.show', compact('users'));
+        } else {
+            return abort(404);
+        }
     }
 
     public function edit(Company $company)
