@@ -26,10 +26,11 @@ class CompanyController extends Controller
 
     public function store(StoreCompanyPost $request)
     {
+        //save the company and attach user to that company.
         $company = new Company(['name' => $request->name, 'user_id' => Auth::user()->id]);
-        //save the company and attach it to the user.
-        $user = User::findOrFail(Auth::user()->id)->companies()->save($company);
-
+        $company = User::findOrFail(Auth::user()->id)->companies()->save($company);
+        //set this as default company
+        User::findOrFail(Auth::user()->id)->update(['company_id' => $company->id]);
         return redirect()->route('company.index')->with('status', 'Company added successfully.');
 
     }
