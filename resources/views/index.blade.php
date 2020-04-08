@@ -63,7 +63,7 @@
             	<div class="row">
             		<div class="col">
             			<h2 class="text-muted">Over due tasks</h2>
-            			<p>{{ $tasksOverDue }}</p>
+            			<p>{{ $tasksOverDue->count() }}</p>
             		</div>
             		<div class="col-auto">
             			<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -150,7 +150,23 @@
                 Overdue tasks
             </div>
             <div class="card-body">
-                
+                <table id="over_due_task_table" class="table">
+                    <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Due date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($tasksOverDue as $taskOverDue)
+                        <tr>
+                            <td>{{ $taskOverDue->title }}</td>
+                            <td>{{ $taskOverDue->end_date->format('jS F Y') }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
