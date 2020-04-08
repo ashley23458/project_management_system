@@ -15,35 +15,35 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$tasksCompleted = Task::whereIn('status', array(2))->whereHas('project', function($query){ 
+    	$tasksCompleted = Task::whereIn('status', array(2))->whereHas('project', function($query){
             $query->where('company_id', Auth::user()->company_id);
-        })->whereHas('users', function($query){ 
+        })->whereHas('users', function($query){
             $query->where('task_user.user_id', Auth::user()->id);
         })->count();
 
-        $tasksNotCompleted = Task::whereIn('status', array(0, 1))->whereHas('project', function($query){ 
+        $tasksNotCompleted = Task::whereIn('status', array(0, 1))->whereHas('project', function($query){
             $query->where('company_id', Auth::user()->company_id);
-        })->whereHas('users', function($query){ 
+        })->whereHas('users', function($query){
             $query->where('task_user.user_id', Auth::user()->id);
         })->count();
 
-        $tasksOverDue = Task::whereIn('status', array(0, 1))->where('end_date', '<', date('Y-m-d'))->whereHas('project', function($query){ 
+        $tasksOverDue = Task::whereIn('status', array(0, 1))->where('end_date', '<', date('Y-m-d'))->whereHas('project', function($query){
             $query->where('company_id', Auth::user()->company_id);
-        })->whereHas('users', function($query){ 
-            $query->where('task_user.user_id', Auth::user()->id);
-        })->count();
-
-        $projectsCount = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){ 
-            $query->where('project_user.user_id', Auth::user()->id);
-        })->orderBy('title')->count();
-
-        $tasks = Task::orderBy('start_date', 'ASC')->whereIn('status', array(0, 1))->whereHas('project', function($query){ 
-            $query->where('company_id', Auth::user()->company_id);
-        })->whereHas('users', function($query){ 
+        })->whereHas('users', function($query){
             $query->where('task_user.user_id', Auth::user()->id);
         })->get();
 
-        $projects = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){ 
+        $projectsCount = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){
+            $query->where('project_user.user_id', Auth::user()->id);
+        })->orderBy('title')->count();
+
+        $tasks = Task::orderBy('start_date', 'ASC')->whereIn('status', array(0, 1))->whereHas('project', function($query){
+            $query->where('company_id', Auth::user()->company_id);
+        })->whereHas('users', function($query){
+            $query->where('task_user.user_id', Auth::user()->id);
+        })->get();
+
+        $projects = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){
             $query->where('project_user.user_id', Auth::user()->id);
         })->orderBy('title')->get();
 
