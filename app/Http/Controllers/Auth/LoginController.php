@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Socialite;
@@ -55,22 +56,14 @@ class LoginController extends Controller
             return redirect('/login');
         }
 
-        // check if they're an existing user
-        $existingUser = User::where('email', $user->email)->first();
-        if ($existingUser) {
-            // log them in
-            auth()->login($existingUser, true);
-        } else {
-            // create a new user
-            $newUser                  = new User;
-            $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
-            $newUser->google_id       = $user->id;
-            $newUser->avatar          = $user->avatar;
-            $newUser->avatar_original = $user->avatar_original;
-            $newUser->save();
-            auth()->login($newUser, true);
-        }
+        $user = User::updateOrCreate(['email' => $user->getEmail()], [
+            'name' => $user->getName(),
+            'google_id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'password' => bcrypt(Str::random(32)),
+        ]);
+
+        auth()->login($user, true);
         return redirect()->to('/home');
     }
 
