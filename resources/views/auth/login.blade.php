@@ -1,10 +1,9 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="row justify-content-center">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="card">
-            <div class="card-header">{{ __('Login') }}</div>
+            <div class="card-header text-md-center">{{ __('Login') }}</div>
                 <a href="{{ route('google_login')}}" class="btn btn-danger"><i class="fab fa-google"></i> Sign in with <b>Google</b></a>
                 <div class="divider"><i>Or</i></div>
             <div class="card-body">
@@ -39,11 +38,11 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <input type="submit" value="Log in" class="btn btn-secondary" />
+                    <div class="row">
+                        <input type="submit" value="Login" class="col-md-12 btn btn-secondary" />
                     </div>
 
-                    
+
                     <div class="form-group row justify-content-center">
                             <p>@if (Route::has('password.request'))
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
