@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Socialite;
 use App\User;
+use App\Company;
 
 class LoginController extends Controller
 {
@@ -62,6 +63,13 @@ class LoginController extends Controller
             'email' => $user->getEmail(),
             'password' => bcrypt(Str::random(32)),
         ]);
+
+        $company = Company::firstOrCreate(['name' => "Personal use", 'user_id' => $user->id]);
+        if ($company->wasRecentlyCreated) {
+            $company->users()->attach($company->id);
+            //set this company as default.
+            User::findOrFail($user->id)->update(['company_id' => $company->id]);
+        }
 
         auth()->login($user, true);
         return redirect()->to('/home');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Company;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -64,10 +65,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $company = Company::firstOrCreate(['name' => "Personal use", 'user_id' => $user->id]);
+        if ($company->wasRecentlyCreated) {
+            $company->users()->attach($company->id);
+            //set this company as default.
+            User::findOrFail($user->id)->update(['company_id' => $company->id]);
+        }
+
+        return $user;
     }
 }
