@@ -4,7 +4,7 @@
 <meta name="description" content="Project Management System">
 <meta name="author" content="Ashley Booth">
 
-<link rel="icon" type="image/png" href="" />
+<link rel="icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon"/>
 
 <!-- CSS files-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
