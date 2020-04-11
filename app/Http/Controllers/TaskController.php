@@ -14,9 +14,9 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::whereHas('project', function($query){ 
+        $tasks = Task::whereHas('project', function($query){
             $query->where('company_id', Auth::user()->company_id);
-        })->whereHas('users', function($query){ 
+        })->whereHas('users', function($query){
             $query->where('task_user.user_id', Auth::user()->id);
         })->paginate(10);
         return view('task.index', compact('tasks'));
@@ -24,9 +24,9 @@ class TaskController extends Controller
 
     public function viewCalendar()
     {
-        $tasks = Task::whereHas('project', function($query){ 
+        $tasks = Task::whereHas('project', function($query){
             $query->where('company_id', Auth::user()->company_id);
-        })->whereHas('users', function($query){ 
+        })->whereHas('users', function($query){
             $query->where('task_user.user_id', Auth::user()->id);
         })->get();
         return view('task.calendar', compact('tasks'));
@@ -64,15 +64,12 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        if ($task->project->company_id == Auth::user()->company_id) {
-            $users = User::whereHas('companies', function($query) {
-                $query->where('company_user.company_id', Auth::user()->company_id);
-            })->orderBy('name')->get(['id', 'name']);
-            $projects = Project::where('company_id', Auth::user()->company_id)->get(['id', 'title']);
-            return view('task.edit', compact('projects', 'users', 'task'));
-        } else {
-            return abort(404);
-        }
+        $this->authorize('access', $task);
+        $users = User::whereHas('companies', function($query) {
+            $query->where('company_user.company_id', Auth::user()->company_id);
+        })->orderBy('name')->get(['id', 'name']);
+        $projects = Project::where('company_id', Auth::user()->company_id)->get(['id', 'title']);
+        return view('task.edit', compact('projects', 'users', 'task'));
     }
 
     public function update(StoreTaskPost $request, Task $task)
@@ -100,11 +97,8 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        if ($task->project->company_id == Auth::user()->company_id) {
-            $task->delete();
-            return redirect()->route('task.index')->with('status', 'Task deleted successfully.');
-        } else {
-            return abort(404);
-        }
+        $this->authorize('access', $task);
+        $task->delete();
+        return redirect()->route('task.index')->with('status', 'Task deleted successfully.');
     }
 }
