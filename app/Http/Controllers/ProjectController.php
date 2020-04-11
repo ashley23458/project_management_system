@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProjectPost;
 use App\Project;
@@ -12,7 +11,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){ 
+        $projects = Project::where('company_id', Auth::user()->company_id)->whereHas('users', function($query){
             $query->where('project_user.user_id', Auth::user()->id);
         })->orderBy('title')->paginate(10);
         return view('project.index', compact('projects'));
@@ -36,42 +35,27 @@ class ProjectController extends Controller
         return redirect()->route('project.index')->with('status', 'Project added successfully.');
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit(Project $project)
     {
-        if ($project->company_id == Auth::user()->company_id) {
-            $users = User::whereHas('companies', function($query) {
-                $query->where('company_user.company_id', Auth::user()->company_id);
-            })->orderBy('name')->get(['id', 'name']);
-            return view('project.edit', compact('project', 'users'));
-        } else {
-            return redirect()->route('project.index')->with('status', 'Please set this projects company to your default company in the companies section before editing.');
-        }
+        $this->authorize('access', $project);
+        $users = User::whereHas('companies', function($query) {
+            $query->where('company_user.company_id', Auth::user()->company_id);
+        })->orderBy('name')->get(['id', 'name']);
+        return view('project.edit', compact('project', 'users'));
     }
 
     public function update(StoreProjectPost $request, Project $project)
     {
-        if ($project->company_id == Auth::user()->company_id) {
-            $project->update(['title' => $request->title, 'description' => $request->description]);
-            $project->users()->sync($request->users);
-            $message = "Project updated successfully.";
-        } else {
-            $message = "Please set this projects company to your default company in the companies section before editing.";
-        }
-        return redirect()->route('project.index')->with('status', $message);
+        $this->authorize('access', $project);
+        $project->update(['title' => $request->title, 'description' => $request->description]);
+        $project->users()->sync($request->users);
+        return redirect()->route('project.index')->with('status', 'Project updated successfully.');
     }
 
     public function destroy(Project $project)
     {
-        if ($project->company_id == Auth::user()->company_id) {
-            $project->delete();
-        } else {
-            return abort(404);
-        }
+        $this->authorize('access', $project);
+        $project->delete();
         return redirect()->route('project.index')->with('status', "Project has been deleted successfully!");
     }
 }

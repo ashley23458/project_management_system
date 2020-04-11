@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Http\Requests\StoreTaskPost;
@@ -55,11 +54,6 @@ class TaskController extends Controller
         );
         $task->users()->attach($request->users);
         return redirect()->route('task.index')->with('status', 'Task added successfully.');
-    }
-
-    public function show($id)
-    {
-        //
     }
 
     public function edit(Task $task)
