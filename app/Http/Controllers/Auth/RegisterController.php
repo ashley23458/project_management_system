@@ -72,8 +72,9 @@ class RegisterController extends Controller
         ]);
 
         $company = Company::firstOrCreate(['name' => "Personal use", 'user_id' => $user->id]);
+
         if ($company->wasRecentlyCreated) {
-            $company->users()->attach($company->id);
+            $company->users()->attach($user->id);
             //set this company as default.
             User::findOrFail($user->id)->update(['company_id' => $company->id]);
         }
