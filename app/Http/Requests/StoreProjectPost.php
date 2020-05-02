@@ -29,11 +29,18 @@ class StoreProjectPost extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'max:255',
-            'users.*' => ['exists:users,id', 
-                          'distinct', //check if user is part of company and user exists. 
+            'users.*' => ['exists:users,id',
+                          'distinct', //check if user is part of company and user exists.
                           Rule::exists('company_user', 'user_id')->where(function ($query) {
                             $query->where('company_id', Auth::user()->company_id);
                           })]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'users.*'  => 'Invalid user(s) selected.'
         ];
     }
 }
