@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->role_id === self::ROLE_ADMIN;
     }
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role', 'role_id', 'id');
+    }
 }

@@ -29,6 +29,15 @@
                     <i class="material-icons dashboard-icons">location_city</i> <span class="text">Companies</span>
                 </a>
             </li>
+            @auth
+                @can('admin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('user.index')}}">
+                            <i class="material-icons dashboard-icons">people_alt</i> <span class="text">Users</span>
+                        </a>
+                    </li>
+                @endcan
+            @endauth
         </ul>
     </div>
 </nav>
