@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserPost;
 use App\User;
 use App\Role;
 
@@ -21,7 +21,7 @@ class UserController extends Controller
         return view("admin_panel.users.edit", compact('user', 'roles'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(StoreUserPost $request, User $user)
     {
         $user->update([
             'name' => $request->name,

@@ -36,7 +36,7 @@
                         <div class="form-group row">
                             <label for="role_id" class="col-sm-3 col-form-label">Select a role</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="role_id" name="role_id">
+                                <select class="form-control @error('role_id') is-invalid @enderror"" id="role_id" name="role_id">
                                     <option>Please select...</option>
                                     @foreach ($roles as $role)
                                         <option value="{{$role->id}}"
@@ -45,6 +45,11 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('role_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <button type="submit" class="btn btn-info">Update</button>
