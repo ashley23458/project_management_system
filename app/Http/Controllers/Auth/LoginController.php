@@ -62,6 +62,7 @@ class LoginController extends Controller
             'google_id' => $user->getId(),
             'email' => $user->getEmail(),
             'password' => bcrypt(Str::random(32)),
+            'role_id' => 1,
         ]);
 
         $company = Company::firstOrCreate(['name' => "Personal use", 'user_id' => $user->id]);
