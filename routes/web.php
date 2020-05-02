@@ -26,7 +26,9 @@ Route::group (['middleware' => 'auth'], function () {
 });
 
 Route::group (['middleware' => ['auth', 'can:admin']], function () {
-    Route::resource('user', 'Admin\UserController');
+    Route::resource('user', 'Admin\UserController')->except([
+        'create', 'store', 'show', 'destroy'
+    ]);
 });
 
 
