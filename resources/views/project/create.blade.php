@@ -40,6 +40,9 @@
 				    			    <option value="{{ $user->id }}" {{ (collect(old('users'))->contains($user->id)) ? 'selected':'' }}>{{ $user->name }}</option>
 				    			@endforeach
 				    		</select>
+                            @if ($errors->has('users.*'))
+                                <strong class="invalid-feedback">{{ $errors->first('users.*') }}</strong>
+                            @endif
 				    	</div>
 				    </div>
 				    <button type="submit" class="btn btn-info">Submit</button>

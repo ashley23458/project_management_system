@@ -42,6 +42,9 @@
 				    			    <option value="{{$user->id}}" @foreach($project->users as $usr) @if($user->id == $usr->id)selected="selected"@endif @endforeach>{{$user->name}}</option>
 				    			@endforeach
 				    		</select>
+                            @if ($errors->has('users.*'))
+                                <strong class="invalid-feedback">{{ $errors->first('users.*') }}</strong>
+                            @endif
 				    	</div>
 				    </div>
 				    <button type="submit" class="btn btn-info">Submit</button>
