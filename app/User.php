@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public const ROLE_ADMIN = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -55,5 +57,10 @@ class User extends Authenticatable
     public function defaultCompany()
     {
         return $this->belongsTo('App\Company', 'company_id', 'id');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role_id === self::ROLE_ADMIN;
     }
 }

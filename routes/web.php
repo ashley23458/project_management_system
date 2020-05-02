@@ -25,6 +25,11 @@ Route::group (['middleware' => 'auth'], function () {
 	Route::get('/calendar', 'TaskController@viewCalendar')->name('calendar');
 });
 
+Route::group (['middleware' => ['auth', 'can:admin']], function () {
+    Route::resource('user', 'Admin\UserController');
+});
+
+
 /*
    auth routes
 */
