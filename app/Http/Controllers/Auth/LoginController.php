@@ -57,7 +57,7 @@ class LoginController extends Controller
             return redirect('/login');
         }
 
-        $user = User::updateOrCreate(['email' => $user->getEmail()], [
+        $user = User::firstOrCreate(['email' => $user->getEmail()], [
             'name' => $user->getName(),
             'google_id' => $user->getId(),
             'email' => $user->getEmail(),
