@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::whereHas('project', function($query){
+        $tasks = Task::whereHas('project', function($query) {
             $query->where('company_id', Auth::user()->company_id);
         })->whereHas('users', function($query){
             $query->where('task_user.user_id', Auth::user()->id);
