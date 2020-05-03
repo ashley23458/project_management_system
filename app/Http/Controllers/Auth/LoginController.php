@@ -34,9 +34,12 @@ class LoginController extends Controller
     //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
-     * Redirect the user to the Google authentication page.
-     *
-     * @return \Illuminate\Http\Response
+     * Author: Jenkins, A. J. University of Huddersfield.
+     * Data: 2020
+     * Title: Sample App Final
+     * Version: WEEK 18
+     * Type: Source code
+     * Availability: https://huddersfield.brightspace.com/d2l/le/content/65955/viewContent/518254/View.
      */
     public function redirectToProvider()
     {
